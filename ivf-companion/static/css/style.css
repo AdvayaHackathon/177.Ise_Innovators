@@ -1,0 +1,90 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f0f9;
+    color: #3a2e4f;
+    margin: 0;
+    padding: 0;
+}
+
+.container, .form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 25px 30px;
+    box-shadow: 0 0 15px rgba(128, 90, 213, 0.2);
+    border-radius: 15px;
+}
+
+h1, h2 {
+    color: #6b46c1;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #c3b5e8;
+    border-radius: 8px;
+    background: #fdfcff;
+}
+
+textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+button, .btn {
+    background-color: #9f7aea;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+button:hover, .btn:hover {
+    background-color: #805ad5;
+}
+
+a {
+    color: #6b46c1;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.lavender-title {
+    color: #7b4ea3;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  form input, form textarea {
+    display: block;
+    margin: 5px 0;
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  form button {
+    background-color: #7b4ea3;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  

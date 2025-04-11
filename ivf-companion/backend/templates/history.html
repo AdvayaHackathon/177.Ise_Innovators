@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Prediction History</title></head>
+<body>
+  <h2>Prediction History</h2>
+  <table border="1">
+    <tr><th>Age</th><th>BMI</th><th>Embryo</th><th>Hormone</th><th>Pregnancies</th><th>Stress</th><th>Sleep</th><th>Result</th><th>Timestamp</th></tr>
+    {% for row in logs %}
+    <tr>
+      {% for item in row %}
+      <td>{{ item }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+  <a href="/">Back to Predictor</a>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="form-container">
+    <h2 class="lavender-title">Smart Calendar</h2>
+    <form method="POST">
+        <input name="title" placeholder="Event Title" required><br>
+        <input type="date" name="date" required><br>
+        <input type="time" name="time" required><br>
+        <textarea name="notes" placeholder="Notes"></textarea><br>
+        <button type="submit">Add Event</button>
+    </form>
+
+    <h3>Your Events</h3>
+    <ul>
+      {% for event in events %}
+      <li><strong>{{ event.date }} at {{ event.time }}</strong>: {{ event.title }} - {{ event.notes }}</li>
+      {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('ivf_form') }}">← Back to Predictor</a>
+</div>
+{% endblock %}

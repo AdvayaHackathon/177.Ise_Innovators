@@ -1,0 +1,9 @@
+flask
+flask_sqlalchemy
+flask_login
+matplotlib
+reportlab
+
+Flask-SQLAlchemy
+Werkzeug
+reportlab
