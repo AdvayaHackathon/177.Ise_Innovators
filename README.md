@@ -19,7 +19,8 @@ Welcome to the Hackathon! We're excited to have you on board and can't wait to s
 
 ## Problem Statement
 
-> **Medicine prescription digitization from Doctors Handwriting**
+> **"Building an AI-Powered IVF Support System to Assist Couples Undergoing Fertility Treatments Through Personalized Predictions, Mental Wellness Tips, and Journey Tracking."
+**
 
 ---
 
