@@ -13,8 +13,11 @@
             <div class="flex flex-wrap gap-4 mb-4">
                 <a href="/predict" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded shadow">IVF Prediction</a>
                 <a href="/export" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow">Export PDF</a>
-                <a href="/logout" class="text-red-500 hover:text-red-700 underline ml-auto">Logout</a>
+                <a href="/ivf-types" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded shadow">Types of IVF</a>
+                <a href="/chatbot" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded shadow">AI Chatbot</a>
 
+            
+                <a href="/logout" class="text-red-500 hover:text-red-700 underline ml-auto">Logout</a>
             </div>
         </div>
 
@@ -50,7 +53,7 @@
         </div>
 
         <!-- Cycle History -->
-        <div class="bg-white rounded-2xl shadow-md p-6">
+        <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
             <h2 class="text-lg font-semibold text-purple-600 mb-2">Your Cycle History</h2>
             <ul class="list-disc list-inside space-y-1">
                 {% for cycle in cycles %}
@@ -58,6 +61,8 @@
                 {% endfor %}
             </ul>
         </div>
+
+       
     </div>
 </body>
 </html>

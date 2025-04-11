@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from reportlab.pdfgen import canvas
 from io import BytesIO
 import datetime
+from flask import Flask, render_template, request, jsonify
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -31,16 +32,6 @@ class CycleLog(db.Model):
     start_date = db.Column(db.Date)
     notes = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    
-class CalendarEvent(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200))
-    date = db.Column(db.Date)
-    time = db.Column(db.String(20))
-    notes = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-
 
 # Create tables
 with app.app_context():
@@ -145,24 +136,34 @@ def export():
     buffer.seek(0)
     return send_file(buffer, as_attachment=True, download_name='ivf_report.pdf', mimetype='application/pdf')
 
-@app.route('/calendar', methods=['GET', 'POST'])
-def calendar():
-    if 'user_id' not in session:
-        return redirect('/login')
-    user = User.query.get(session['user_id'])
-    if request.method == 'POST':
-        title = request.form['title']
-        date = datetime.datetime.strptime(request.form['date'], "%Y-%m-%d").date()
-        time = request.form['time']
-        notes = request.form['notes']
-        event = CalendarEvent(title=title, date=date, time=time, notes=notes, user_id=user.id)
-        db.session.add(event)
-        db.session.commit()
-        return redirect('/calendar')
-    events = CalendarEvent.query.filter_by(user_id=user.id).all()
-    return render_template('calendar.html', events=events)
+@app.route("/ivf-types")
+def ivf_types():
+    return render_template("types-of-ivf.html")
 
-calendar_events = db.relationship('CalendarEvent', backref='user', lazy=True)
+@app.route('/chat', methods=['POST'])
+def chat():
+    message = request.json.get('message', '').lower()
+
+    # Simple IVF-specific response logic
+    if "ivf" in message:
+        response = "IVF stands for In Vitro Fertilization — a procedure to help with fertility or prevent genetic problems."
+    elif "success rate" in message or "success" in message:
+        response = "IVF success rates depend on age, BMI, and other medical factors. Would you like to try our success predictor above?"
+    elif "hello" in message or "hi" in message:
+        response = "Hi there! I'm your IVF Companion. Ask me anything about fertility or the IVF process."
+    elif "bmi" in message:
+        response = "BMI stands for Body Mass Index. It's one factor that can affect IVF success."
+    elif "age" in message:
+        response = "Age is a critical factor in IVF. Younger women generally have higher success rates."
+    else:
+        response = "I'm here to help with IVF-related questions. Try asking about success rate, age, or BMI."
+
+    return jsonify({"response": response})
+@app.route('/chatbot')
+def chatbot_page():
+    return render_template('chatbot.html')
+
+
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)

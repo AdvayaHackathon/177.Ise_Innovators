@@ -10,8 +10,9 @@
             background: linear-gradient(135deg, #f0f4ff, #dfe9f3);
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 40px;
         }
 
         .form-container {
@@ -20,28 +21,23 @@
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 400px;
-            text-align: center;
+            max-width: 450px;
         }
 
         .form-container h2 {
             margin-bottom: 25px;
             color: #2c3e50;
+            text-align: center;
         }
 
-        input[type="number"] {
+        input[type="number"],
+        input[type="text"] {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 10px;
             font-size: 16px;
-            transition: border 0.3s ease;
-        }
-
-        input[type="number"]:focus {
-            border-color: #3498db;
-            outline: none;
         }
 
         button {
@@ -52,8 +48,8 @@
             border-radius: 10px;
             font-size: 16px;
             cursor: pointer;
+            width: 100%;
             margin-top: 10px;
-            transition: background-color 0.3s ease;
         }
 
         button:hover {
@@ -64,19 +60,44 @@
             margin-top: 20px;
             font-size: 18px;
             color: #2ecc71;
+            text-align: center;
         }
 
         a {
-            display: inline-block;
+            display: block;
             margin-top: 20px;
-            text-decoration: none;
+            text-align: center;
             color: #34495e;
             font-size: 14px;
-            transition: color 0.3s ease;
+            text-decoration: none;
         }
 
         a:hover {
             color: #3498db;
+        }
+
+        .chatbox {
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .chatlog {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 10px;
+            height: 150px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        #userInput {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -84,18 +105,49 @@
     <div class="form-container">
         <h2>IVF Success Predictor</h2>
         <form method="POST">
-            <input type="number" name="age" placeholder="Your Age" required><br>
-            <input type="number" name="bmi" placeholder="Your BMI" step="0.1" required><br>
-            <label>No. of IVF Cycles:</label><input type="number" name="cycles" required><br>
-            <label>Stress Level (1-10):</label><input type="number" name="stress" min="1" max="10" required><br>
+            <input type="number" name="age" placeholder="Your Age" required>
+            <input type="number" name="bmi" placeholder="Your BMI" step="0.1" required>
             <button type="submit">Predict</button>
         </form>
+
         {% if prediction %}
             <p class="result">Predicted IVF Success: <strong>{{ prediction }}</strong></p>
         {% endif %}
-        <a href="/dashboard">← Back to Dashboard</a>
-        <a href="{{ url_for('calendar') }}">📅 Smart Calendar</a>
 
+        <a href="/dashboard">← Back to Dashboard</a>
+
+        <!-- Chatbot Section -->
+        <div class="chatbox">
+            <h3 style="text-align:center; color:#2c3e50;">💬 IVF Companion Chatbot</h3>
+            <div class="chatlog" id="chatlog"></div>
+            <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="handleKey(event)">
+        </div>
     </div>
+
+    <!-- Chatbot Script -->
+    <script>
+        function handleKey(event) {
+            if (event.key === "Enter") {
+                let input = document.getElementById("userInput").value;
+                if (!input) return;
+
+                document.getElementById("chatlog").innerHTML += "<div><strong>You:</strong> " + input + "</div>";
+
+                fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: input })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("chatlog").innerHTML += "<div><strong>Bot:</strong> " + data.response + "</div>";
+                    document.getElementById("userInput").value = "";
+                    document.getElementById("chatlog").scrollTop = document.getElementById("chatlog").scrollHeight;
+                });
+            }
+        }
+    </script>
 </body>
 </html>
