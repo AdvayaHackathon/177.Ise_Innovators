@@ -107,6 +107,8 @@
         <form method="POST">
             <input type="number" name="age" placeholder="Your Age" required>
             <input type="number" name="bmi" placeholder="Your BMI" step="0.1" required>
+            <label>No. of IVF Cycles:</label><input type="number" name="cycles" required><br>
+            <label>Stress Level (1-10):</label><input type="number" name="stress" min="1" max="10" required><br>
             <button type="submit">Predict</button>
         </form>
 
@@ -115,39 +117,5 @@
         {% endif %}
 
         <a href="/dashboard">← Back to Dashboard</a>
-
-        <!-- Chatbot Section -->
-        <div class="chatbox">
-            <h3 style="text-align:center; color:#2c3e50;">💬 IVF Companion Chatbot</h3>
-            <div class="chatlog" id="chatlog"></div>
-            <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="handleKey(event)">
-        </div>
-    </div>
-
-    <!-- Chatbot Script -->
-    <script>
-        function handleKey(event) {
-            if (event.key === "Enter") {
-                let input = document.getElementById("userInput").value;
-                if (!input) return;
-
-                document.getElementById("chatlog").innerHTML += "<div><strong>You:</strong> " + input + "</div>";
-
-                fetch('/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ message: input })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("chatlog").innerHTML += "<div><strong>Bot:</strong> " + data.response + "</div>";
-                    document.getElementById("userInput").value = "";
-                    document.getElementById("chatlog").scrollTop = document.getElementById("chatlog").scrollHeight;
-                });
-            }
-        }
-    </script>
 </body>
 </html>

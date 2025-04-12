@@ -5,7 +5,6 @@ from reportlab.pdfgen import canvas
 from io import BytesIO
 import datetime
 from flask import make_response, render_template
-from xhtml2pdf import pisa
 from flask import Flask, render_template, request, jsonify
 
 # Initialize Flask app
@@ -14,8 +13,6 @@ app.secret_key = 'ivf_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ivf.db'
 db = SQLAlchemy(app)
 
-with app.app_context():
-    db.create_all()
 
 # Models
 class User(db.Model):

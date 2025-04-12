@@ -1,101 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>IVF Chatbot</title>
+    <meta charset="UTF-8">
+    <title>IVF Companion Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(to right, #f5f7fa, #e4ecf3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
         .chatbox {
-            background-color: #ffffff;
-            width: 400px;
-            max-width: 90%;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px 25px;
-        }
-
-        h3 {
-            text-align: center;
-            color: #6c5ce7;
-            margin-bottom: 15px;
+            max-width: 600px;
+            margin: 2rem auto;
+            background-color: #fefefe;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
         }
 
         .chatlog {
-            background-color: #f0f4f8;
-            border-radius: 15px;
-            padding: 15px;
-            height: 200px;
+            height: 300px;
             overflow-y: auto;
-            margin-bottom: 15px;
-            font-size: 14px;
-            color: #2c3e50;
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .chatlog div {
-            margin-bottom: 10px;
-        }
-
-        .chatlog strong {
-            color: #6c5ce7;
+            background: #f9fafb;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.95rem;
         }
 
         #userInput {
             width: 100%;
-            padding: 12px 15px;
-            border-radius: 12px;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
             border: 1px solid #ccc;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.3s;
+            font-size: 1rem;
         }
 
-        #userInput:focus {
-            border-color: #6c5ce7;
+        .bot-msg {
+            color: #374151;
         }
 
-        /* Scrollbar styling */
-        .chatlog::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .chatlog::-webkit-scrollbar-thumb {
-            background-color: #dcdde1;
-            border-radius: 10px;
-        }
-
-        .chatlog::-webkit-scrollbar-track {
-            background-color: #f5f6fa;
+        .user-msg {
+            font-weight: bold;
+            color: #4b5563;
         }
     </style>
 </head>
-<body>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 min-h-screen font-sans">
+
     <div class="chatbox">
-        <h3>🤖 IVF Companion Chatbot</h3>
+        <h2 class="text-2xl font-bold text-center text-purple-700 mb-4">💬 IVF Companion Chatbot</h2>
         <div class="chatlog" id="chatlog"></div>
         <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="handleKey(event)">
     </div>
 
+    <!-- Chatbot Script -->
     <script>
         function handleKey(event) {
             if (event.key === "Enter") {
                 let input = document.getElementById("userInput").value.trim();
                 if (!input) return;
 
-                const chatlog = document.getElementById("chatlog");
-                chatlog.innerHTML += `<div><strong>You:</strong> ${input}</div>`;
+                document.getElementById("chatlog").innerHTML += "<div class='user-msg mb-1'>You: " + input + "</div>";
 
-                fetch('/chat',6+ {
+                fetch('/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -104,12 +71,13 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    chatlog.innerHTML += `<div><strong>Bot:</strong> ${data.response}</div>`;
+                    document.getElementById("chatlog").innerHTML += "<div class='bot-msg mb-3'>Bot: " + data.response + "</div>";
                     document.getElementById("userInput").value = "";
-                    chatlog.scrollTop = chatlog.scrollHeight;
+                    document.getElementById("chatlog").scrollTop = document.getElementById("chatlog").scrollHeight;
                 });
             }
         }
     </script>
+
 </body>
 </html>
