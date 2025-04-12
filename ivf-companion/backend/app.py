@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from reportlab.pdfgen import canvas
 from io import BytesIO
 import datetime
+from flask import make_response, render_template
+from xhtml2pdf import pisa
 from flask import Flask, render_template, request, jsonify
 
 # Initialize Flask app
@@ -11,6 +13,9 @@ app = Flask(__name__)
 app.secret_key = 'ivf_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ivf.db'
 db = SQLAlchemy(app)
+
+with app.app_context():
+    db.create_all()
 
 # Models
 class User(db.Model):
@@ -163,6 +168,17 @@ def chat():
 def chatbot_page():
     return render_template('chatbot.html')
 
+@app.route('/cycle-stage')
+def cycle_stage():
+    return render_template('ivf_content_engine.html')
+
+@app.route('/ivf-cost-calculator', methods=['GET', 'POST'])
+def ivf_cost_calculator():
+     return render_template('ivf_cost_calculator.html')
+
+@app.route('/mental-health-toolkit')
+def mental_health_toolkit():
+    return render_template('mental-health-toolkit.html')  # Adjust the filename to your actual HTML file
 
 # Run the app
 if __name__ == '__main__':

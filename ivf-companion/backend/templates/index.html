@@ -18,6 +18,12 @@
             <a href="/register" class="bg-pink-400 hover:bg-pink-500 text-white px-6 py-3 rounded-xl text-lg font-medium shadow-md transition duration-300">
                 Register
             </a>
+            
+            <div style="text-align:center; margin-top:30px;">
+                <a href="{{ url_for('login_bp.doctor_login') }}">👨‍⚕️ Doctor Login</a> |
+                <a href="{{ url_for('login_bp.patient_login') }}">🧑‍🍼 Patient Login</a> |
+                <a href="{{ url_for('login_bp.book_appointment') }}">📌 Book Appointment</a>
+            </div>
         </div>
     </div>
 </body>

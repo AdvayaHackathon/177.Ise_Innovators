@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVF Treatment Cost Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>IVF Treatment Cost Calculator</h2>
+
+    <div class="form-group">
+        <label for="consultation">Consultation Fee ($):</label>
+        <input type="number" id="consultation" placeholder="Enter consultation fee" />
+    </div>
+
+    <div class="form-group">
+        <label for="medication">Medication Cost ($):</label>
+        <input type="number" id="medication" placeholder="Enter medication cost" />
+    </div>
+
+    <div class="form-group">
+        <label for="labTests">Lab Test Fees ($):</label>
+        <input type="number" id="labTests" placeholder="Enter lab test fees" />
+    </div>
+
+    <div class="form-group">
+        <label for="embryoTransfer">Embryo Transfer Cost ($):</label>
+        <input type="number" id="embryoTransfer" placeholder="Enter embryo transfer cost" />
+    </div>
+
+    <div class="form-group">
+        <label for="additionalCosts">Additional Costs ($):</label>
+        <input type="number" id="additionalCosts" placeholder="Enter additional costs" />
+    </div>
+
+    <div class="form-group">
+        <button type="button" onclick="calculateCost()">Calculate Total Cost</button>
+    </div>
+
+    <div class="result" id="totalCostResult">
+        <!-- The total cost will be displayed here -->
+    </div>
+
+    <div class="result" id="totalCostResultINR">
+        <!-- The total cost in INR will be displayed here -->
+    </div>
+</div>
+
+<script>
+    function calculateCost() {
+        // Get input values
+        let consultation = parseFloat(document.getElementById('consultation').value) || 0;
+        let medication = parseFloat(document.getElementById('medication').value) || 0;
+        let labTests = parseFloat(document.getElementById('labTests').value) || 0;
+        let embryoTransfer = parseFloat(document.getElementById('embryoTransfer').value) || 0;
+        let additionalCosts = parseFloat(document.getElementById('additionalCosts').value) || 0;
+
+        // Calculate the total cost in USD
+        let totalCostUSD = consultation + medication + labTests + embryoTransfer + additionalCosts;
+
+        // Conversion rate (1 USD = 80 INR)
+        let conversionRate = 80;
+        let totalCostINR = totalCostUSD * conversionRate;
+
+        // Display the result in USD
+        document.getElementById('totalCostResult').innerHTML = "Total IVF Treatment Cost: $" + totalCostUSD.toFixed(2);
+
+        // Display the result in INR
+        document.getElementById('totalCostResultINR').innerHTML = "Total IVF Treatment Cost: ₹" + totalCostINR.toFixed(2);
+    }
+</script>
+
+</body>
+</html>

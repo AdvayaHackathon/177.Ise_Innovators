@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IVF Cycle Stage Content Engine</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px;
+      background: #f7f7fc;
+    }
+    select, .content-box {
+      width: 100%;
+      max-width: 500px;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    .content-box {
+      margin-top: 20px;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>💡 Personalized IVF Support</h1>
+  <label for="cycleStage">Select Your Current IVF Cycle Stage:</label>
+  <select id="cycleStage">
+    <option value="">-- Choose a stage --</option>
+    <option value="stimulation">Ovarian Stimulation</option>
+    <option value="retrieval">Egg Retrieval</option>
+    <option value="fertilization">Fertilization & Embryo Culture</option>
+    <option value="transfer">Embryo Transfer</option>
+    <option value="tww">Two-Week Wait (TWW)</option>
+  </select>
+
+  <div class="content-box" id="stageContent">
+    <h2>📘 Your Support Content Will Appear Here</h2>
+    <p>Please select your current stage to receive relevant wellness tips, affirmations, and articles.</p>
+  </div>
+
+  <script>
+    const content = {
+      stimulation: `
+        <h2>🧬 Ovarian Stimulation</h2>
+        <p><strong>Tip:</strong> Stay hydrated and track your symptoms daily.</p>
+        <p><strong>Affirmation:</strong> "Every step I take brings me closer to my goal."</p>
+        <p><a href="#">Read: Nutrition tips during stimulation phase</a></p>
+      `,
+      retrieval: `
+        <h2>🔬 Egg Retrieval</h2>
+        <p><strong>Tip:</strong> Rest well before and after the procedure.</p>
+        <p><strong>Affirmation:</strong> "I trust the process and my body’s resilience."</p>
+        <p><a href="#">Watch: What to expect on egg retrieval day</a></p>
+      `,
+      fertilization: `
+        <h2>🧫 Fertilization & Embryo Culture</h2>
+        <p><strong>Tip:</strong> Limit stress and stay hopeful during the wait.</p>
+        <p><strong>Affirmation:</strong> "Tiny beginnings can grow into miracles."</p>
+        <p><a href="#">Read: Understanding embryo grading</a></p>
+      `,
+      transfer: `
+        <h2>📦 Embryo Transfer</h2>
+        <p><strong>Tip:</strong> Relax after the transfer and avoid high-stress activities.</p>
+        <p><strong>Affirmation:</strong> "My body is ready to nurture new life."</p>
+        <p><a href="#">Explore: Best post-transfer care tips</a></p>
+      `,
+      tww: `
+        <h2>⏳ Two-Week Wait (TWW)</h2>
+        <p><strong>Tip:</strong> Distract yourself with calming activities and lean on support.</p>
+        <p><strong>Affirmation:</strong> "I am strong, patient, and hopeful."</p>
+        <p><a href="#">Read: Coping strategies for the TWW</a></p>
+      `
+    };
+
+    const select = document.getElementById('cycleStage');
+    const contentBox = document.getElementById('stageContent');
+
+    select.addEventListener('change', () => {
+      const selectedStage = select.value;
+      if (content[selectedStage]) {
+        contentBox.innerHTML = content[selectedStage];
+      } else {
+        contentBox.innerHTML = `<h2>📘 Your Support Content Will Appear Here</h2>
+                                <p>Please select your current stage to receive relevant wellness tips, affirmations, and articles.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
